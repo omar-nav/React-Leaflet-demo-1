@@ -22,12 +22,12 @@ config.params = {
   attributionControl: true
 };
 config.tileLayer = {
-  uri: 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+  uri: 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
   params: {
     minZoom: 11,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    id: '',
-    accessToken: ''
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1Ijoib21hci1uYXZhcnJvIiwiYSI6ImNpanN2ZWZxZzBoa291eWx4ZWdsajl1OGIifQ.SH4OG9811nirTGJ3rE4DHw'
   }
 };
 
@@ -43,7 +43,7 @@ class Map extends Component {
       tileLayer: null,
       geojsonLayer: null,
       geojson: null,
-      subwayLinesFilter: '*',
+      nombreDeMunicipiosFilter: '*',
       numEntrances: null
     };
     this._mapNode = null;
@@ -71,7 +71,7 @@ class Map extends Component {
     }
 
     // check to see if the subway lines filter has changed
-    if (this.state.subwayLinesFilter !== prevState.subwayLinesFilter) {
+    if (this.state.nombreDeMunicipiosFilter !== prevState.nombreDeMunicipiosFilter) {
       // filter / re-render the geojson overlay
       this.filterGeoJSONLayer();
     }
@@ -93,14 +93,14 @@ class Map extends Component {
   }
 
   updateMap(e) {
-    let subwayLine = e.target.value;
+    let nombreDeMunicipio = e.target.value;
     // change the subway line filter
-    if (subwayLine === "todos los municipios") {
-      subwayLine = "*";
+    if (nombreDeMunicipio === "todos los municipios") {
+      nombreDeMunicipio = "*";
     }
     // update our state with the new filter value
     this.setState({
-      subwayLinesFilter: subwayLine
+      nombreDeMunicipiosFilter: nombreDeMunicipio
     });
   }
 
@@ -142,8 +142,8 @@ class Map extends Component {
   filterFeatures(feature, layer) {
     // filter the subway entrances based on the map's current search filter
     // returns true only if the filter value matches the value of feature.properties.LINE
-    const test = feature.properties.LINE.split('-').indexOf(this.state.subwayLinesFilter);
-    if (this.state.subwayLinesFilter === '*' || test !== -1) {
+    const test = feature.properties.LINE.split('-').indexOf(this.state.nombreDeMunicipiosFilter);
+    if (this.state.nombreDeMunicipiosFilter === '*' || test !== -1) {
       return true;
     }
   }
@@ -208,14 +208,14 @@ class Map extends Component {
   }
 
   render() {
-    const { subwayLinesFilter } = this.state;
+    const { nombreDeMunicipiosFilter } = this.state;
     return (
       <div id="mapUI">
         {
-          /* render the Filter component only after the subwayLines array has been created */
+          /* render the Filter component only after the nombreDeMunicipios array has been created */
           nombresDeMunicipios.length &&
           <Filter lines={nombresDeMunicipios}
-            curFilter={subwayLinesFilter}
+            curFilter={nombreDeMunicipiosFilter}
             filterLines={this.updateMap} />
         }
         <div ref={(node) => this._mapNode = node} id="map" />
