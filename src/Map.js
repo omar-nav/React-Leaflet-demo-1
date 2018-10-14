@@ -31,7 +31,7 @@ config.tileLayer = {
   }
 };
 
-// array to store unique names of Brooklyn subway lines,
+// array to store unique names of Brooklyn subway municipioss,
 // this eventually gets passed down to the Filter component
 let nombresDeMunicipios = [];
 
@@ -70,7 +70,7 @@ class Map extends Component {
       this.addGeoJSONLayer(this.state.geojson);
     }
 
-    // check to see if the subway lines filter has changed
+    // check to see if the subway municipioss filter has changed
     if (this.state.nombreDeMunicipiosFilter !== prevState.nombreDeMunicipiosFilter) {
       // filter / re-render the geojson overlay
       this.filterGeoJSONLayer();
@@ -94,7 +94,7 @@ class Map extends Component {
 
   updateMap(e) {
     let nombreDeMunicipio = e.target.value;
-    // change the subway line filter
+    // change the subway municipios filter
     if (nombreDeMunicipio === "todos los municipios") {
       nombreDeMunicipio = "*";
     }
@@ -123,7 +123,7 @@ class Map extends Component {
   filterGeoJSONLayer() {
     // clear the geojson layer of its data
     this.state.geojsonLayer.clearLayers();
-    // re-add the geojson so that it filters out subway lines which do not match state.filter
+    // re-add the geojson so that it filters out subway municipioss which do not match state.filter
     this.state.geojsonLayer.addData(geojson);
     // fit the map to the new geojson layer's geographic extent
     this.zoomToFeature(this.state.geojsonLayer);
@@ -142,7 +142,7 @@ class Map extends Component {
   filterFeatures(feature, layer) {
     // filter the subway entrances based on the map's current search filter
     // returns true only if the filter value matches the value of feature.properties.LINE
-    const test = feature.properties.LINE.split('-').indexOf(this.state.nombreDeMunicipiosFilter);
+    const test = feature.properties.LINE.indexOf(this.state.nombreDeMunicipiosFilter);
     if (this.state.nombreDeMunicipiosFilter === '*' || test !== -1) {
       return true;
     }
@@ -166,20 +166,20 @@ class Map extends Component {
   onEachFeature(feature, layer) {
     if (feature.properties && feature.properties.LINE) {
 
-      // if the array for unique subway line names has not been made, create it
+      // if the array for unique subway municipios names has not been made, create it
       // there are 19 unique names total
       if (nombresDeMunicipios.length < 19) {
 
-        // add subway line name if it doesn't yet exist in the array
-        feature.properties.LINE.split('-').forEach(function (line, index) {
-          if (nombresDeMunicipios.indexOf(line) === -1) nombresDeMunicipios.push(line);
+        // add subway municipios name if it doesn't yet exist in the array
+        feature.properties.LINE.split('-').forEach(function (municipios, index) {
+          if (nombresDeMunicipios.indexOf(municipios) === -1) nombresDeMunicipios.push(municipios);
         });
 
         // on the last GeoJSON feature
         if (this.state.geojson.features.indexOf(feature) === this.state.numEntrances - 1) {
           // use sort() to put our values in alphanumeric order
           nombresDeMunicipios.sort();
-          // finally add a value to represent all of the subway lines
+          // finally add a value to represent all of the subway municipioss
           nombresDeMunicipios.unshift('todos los municipios');
         }
       }
@@ -214,7 +214,7 @@ class Map extends Component {
         {
           /* render the Filter component only after the nombreDeMunicipios array has been created */
           nombresDeMunicipios.length &&
-          <Filter lines={nombresDeMunicipios}
+          <Filter municipioss={nombresDeMunicipios}
             curFilter={nombreDeMunicipiosFilter}
             filterLines={this.updateMap} />
         }
