@@ -49,7 +49,7 @@ class Map extends Component {
     this._mapNode = null;
     this.updateMap = this.updateMap.bind(this);
     this.onEachFeature = this.onEachFeature.bind(this);
-    this.pointToLayer = this.pointToLayer.bind(this);
+    // this.pointToLayer = this.pointToLayer.bind(this);
     this.filterFeatures = this.filterFeatures.bind(this);
     this.filterGeoJSONLayer = this.filterGeoJSONLayer.bind(this);
   }
@@ -148,20 +148,20 @@ class Map extends Component {
     }
   }
 
-  pointToLayer(feature, latlng) {
-    // renders our GeoJSON points as circle markers, rather than Leaflet's default image markers
-    // parameters to style the GeoJSON markers
-    var markerParams = {
-      radius: 4,
-      fillColor: 'orange',
-      color: '#fff',
-      weight: 1,
-      opacity: 0.5,
-      fillOpacity: 0.8
-    };
+  // pointToLayer(feature, latlng) {
+  //   // renders our GeoJSON points as circle markers, rather than Leaflet's default image markers
+  //   // parameters to style the GeoJSON markers
+  //   var markerParams = {
+  //     radius: 4,
+  //     fillColor: 'orange',
+  //     color: '#fff',
+  //     weight: 1,
+  //     opacity: 0.5,
+  //     fillOpacity: 0.8
+  //   };
 
-    return L.circleMarker(latlng, markerParams);
-  }
+  //   return L.circleMarker(latlng, markerParams);
+  // }
 
   onEachFeature(feature, layer) {
     if (feature.properties && feature.properties.LINE) {
