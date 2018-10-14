@@ -33,7 +33,7 @@ config.tileLayer = {
 
 // array to store unique names of Brooklyn subway lines,
 // this eventually gets passed down to the Filter component
-let subwayLineNames = [];
+let nombresDeMunicipios = [];
 
 class Map extends Component {
   constructor(props) {
@@ -168,19 +168,19 @@ class Map extends Component {
 
       // if the array for unique subway line names has not been made, create it
       // there are 19 unique names total
-      if (subwayLineNames.length < 19) {
+      if (nombresDeMunicipios.length < 19) {
 
         // add subway line name if it doesn't yet exist in the array
         feature.properties.LINE.split('-').forEach(function (line, index) {
-          if (subwayLineNames.indexOf(line) === -1) subwayLineNames.push(line);
+          if (nombresDeMunicipios.indexOf(line) === -1) nombresDeMunicipios.push(line);
         });
 
         // on the last GeoJSON feature
         if (this.state.geojson.features.indexOf(feature) === this.state.numEntrances - 1) {
           // use sort() to put our values in alphanumeric order
-          subwayLineNames.sort();
+          nombresDeMunicipios.sort();
           // finally add a value to represent all of the subway lines
-          subwayLineNames.unshift('todos los municipios');
+          nombresDeMunicipios.unshift('todos los municipios');
         }
       }
 
@@ -213,8 +213,8 @@ class Map extends Component {
       <div id="mapUI">
         {
           /* render the Filter component only after the subwayLines array has been created */
-          subwayLineNames.length &&
-          <Filter lines={subwayLineNames}
+          nombresDeMunicipios.length &&
+          <Filter lines={nombresDeMunicipios}
             curFilter={subwayLinesFilter}
             filterLines={this.updateMap} />
         }
