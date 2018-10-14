@@ -3,7 +3,7 @@ import L from 'leaflet';
 // postCSS import of Leaflet's CSS
 import 'leaflet/dist/leaflet.css';
 // using webpack json loader we can import our geojson file like this
-import geojson from 'json!./bk_subway_entrances.geojson';
+import geojson from 'json!./robos2015.geojson';
 // import local components Filter and ForkMe
 import Filter from './Filter';
 
@@ -95,7 +95,7 @@ class Map extends Component {
   updateMap(e) {
     let subwayLine = e.target.value;
     // change the subway line filter
-    if (subwayLine === "All lines") {
+    if (subwayLine === "todos los municipios") {
       subwayLine = "*";
     }
     // update our state with the new filter value
@@ -180,7 +180,7 @@ class Map extends Component {
           // use sort() to put our values in alphanumeric order
           subwayLineNames.sort();
           // finally add a value to represent all of the subway lines
-          subwayLineNames.unshift('All lines');
+          subwayLineNames.unshift('todos los municipios');
         }
       }
 
