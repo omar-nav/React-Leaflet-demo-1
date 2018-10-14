@@ -10,22 +10,21 @@ export default (props) => {
   // to the parent component, Map, which reloads the GeoJSON data with the current filter value
   return (
     <div className="filterSubwayLines">
-      <hr/>
-      <h3>Brooklyn Subway Entrances</h3>
-      <p>A <a href="http://leafletjs.com/">Leaflet</a> &amp; <a href="https://facebook.github.io/react/">React</a> demo</p>
-      <p>Filter Entrances by Subway Line</p>
+      <hr />
+      <h3>Municipios de CDMX</h3>
+      <p>Filtrar por municipio</p>
       <select defaultValue="*"
         type="select"
         name="filterlines"
         onChange={(e) => filterLines(e)}>
-          { /* We render the select's option elements by maping each of the values of subwayLines array to option elements */ }
-          {
-            lines.map((line, i) => {
-              return (
-                  <option value={line} key={i}>{line}</option>
-                );
-            }, this)
-          }
+        { /* We render the select's option elements by maping each of the values of subwayLines array to option elements */}
+        {
+          lines.map((line, i) => {
+            return (
+              <option value={line} key={i}>{line}</option>
+            );
+          }, this)
+        }
       </select>
     </div>
   );

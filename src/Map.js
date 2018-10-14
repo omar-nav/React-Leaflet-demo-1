@@ -6,7 +6,6 @@ import 'leaflet/dist/leaflet.css';
 import geojson from 'json!./bk_subway_entrances.geojson';
 // import local components Filter and ForkMe
 import Filter from './Filter';
-import ForkMe from './ForkMe';
 
 // store the map configuration properties in an object,
 // we could also move this to a separate file & import it if desired.
@@ -187,7 +186,7 @@ class Map extends Component {
 
       // assemble the HTML for the markers' popups (Leaflet's bindPopup method doesn't accept React JSX)
       const popupContent = `<h3>${feature.properties.NAME}</h3>
-        <strong>Access to MTA lines: </strong>${feature.properties.LINE}`;
+        <strong>Homicidios durante 2015: </strong>${feature.properties.LINE}`;
 
       // add our popups
       layer.bindPopup(popupContent);
@@ -220,7 +219,6 @@ class Map extends Component {
             filterLines={this.updateMap} />
         }
         <div ref={(node) => this._mapNode = node} id="map" />
-        <ForkMe />
       </div>
     );
   }
