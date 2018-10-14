@@ -12,7 +12,7 @@ import ForkMe from './ForkMe';
 // we could also move this to a separate file & import it if desired.
 let config = {};
 config.params = {
-  center: [40.655769,-73.938503],
+  center: [40.655769, -73.938503],
   zoomControl: false,
   zoom: 13,
   maxZoom: 19,
@@ -133,8 +133,8 @@ class Map extends Component {
   zoomToFeature(target) {
     // pad fitBounds() so features aren't hidden under the Filter UI element
     var fitBoundsParams = {
-      paddingTopLeft: [200,10],
-      paddingBottomRight: [10,10]
+      paddingTopLeft: [200, 10],
+      paddingBottomRight: [10, 10]
     };
     // set the map's center & zoom so that it fits the geographic extent of the layer
     this.state.map.fitBounds(target.getBounds(), fitBoundsParams);
@@ -165,14 +165,14 @@ class Map extends Component {
   }
 
   onEachFeature(feature, layer) {
-    if (feature.properties && feature.properties.NAME && feature.properties.LINE) {
+    if (feature.properties && feature.properties.LINE) {
 
       // if the array for unique subway line names has not been made, create it
       // there are 19 unique names total
       if (subwayLineNames.length < 19) {
 
         // add subway line name if it doesn't yet exist in the array
-        feature.properties.LINE.split('-').forEach(function(line, index){
+        feature.properties.LINE.split('-').forEach(function (line, index) {
           if (subwayLineNames.indexOf(line) === -1) subwayLineNames.push(line);
         });
 
@@ -198,8 +198,8 @@ class Map extends Component {
     if (this.state.map) return;
     // this function creates the Leaflet map object and is called after the Map component mounts
     let map = L.map(id, config.params);
-    L.control.zoom({ position: "bottomleft"}).addTo(map);
-    L.control.scale({ position: "bottomleft"}).addTo(map);
+    L.control.zoom({ position: "bottomleft" }).addTo(map);
+    L.control.scale({ position: "bottomleft" }).addTo(map);
 
     // a TileLayer is used as the "basemap"
     const tileLayer = L.tileLayer(config.tileLayer.uri, config.tileLayer.params).addTo(map);
@@ -215,9 +215,9 @@ class Map extends Component {
         {
           /* render the Filter component only after the subwayLines array has been created */
           subwayLineNames.length &&
-            <Filter lines={subwayLineNames}
-              curFilter={subwayLinesFilter}
-              filterLines={this.updateMap} />
+          <Filter lines={subwayLineNames}
+            curFilter={subwayLinesFilter}
+            filterLines={this.updateMap} />
         }
         <div ref={(node) => this._mapNode = node} id="map" />
         <ForkMe />
