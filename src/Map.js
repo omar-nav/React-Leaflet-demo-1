@@ -186,7 +186,12 @@ class Map extends Component {
 
       // assemble the HTML for the markers' popups (Leaflet's bindPopup method doesn't accept React JSX)
       const popupContent = `<h3>${feature.properties.LINE}</h3>
-        <strong>Homicidios durante 2015: </strong>${feature.properties.robbery2015_Total}`;
+        <h4><strong>Robos durante 2015: </strong>${feature.properties.robbery2015_Total}</h4>
+        <h4><strong>Robos durante 2016: </strong>${feature.properties.robbery2016_Total}</h4>
+        <h4><strong>Robos durante 2017: </strong>${feature.properties.robbery2017_Total}</h4>
+        <h4><strong>Homicidios durante 2015: </strong>${feature.properties.homicides2015_Total}</h4>
+        <h4><strong>Homicidios durante 2016: </strong>${feature.properties.homicides2015_Total}</h4>
+        <h4><strong>Homicidios durante 2017: </strong>${feature.properties.homicides2017_Total}</h4>`;
 
       // add our popups
       layer.bindPopup(popupContent);
