@@ -3,7 +3,7 @@ import L from 'leaflet';
 // postCSS import of Leaflet's CSS
 import 'leaflet/dist/leaflet.css';
 // using webpack json loader we can import our geojson file like this
-import geojson from 'json!./robos2015.geojson';
+import geojson from 'json!./municipios.geojson';
 // import local components Filter and ForkMe
 import Filter from './Filter';
 
