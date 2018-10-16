@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var paths = require('./paths');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
@@ -86,10 +87,11 @@ module.exports = {
     configFile: path.join(__dirname, 'eslint.js'),
     useEslintrc: false
   },
-  postcss: function() {
+  postcss: function () {
     return [autoprefixer];
   },
   plugins: [
+    new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
